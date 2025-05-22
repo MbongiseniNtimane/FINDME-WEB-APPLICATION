@@ -1,0 +1,90 @@
+﻿
+
+@{
+    Layout = "_UserLayout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >About Us - Find Me App</title>
+    <link rel="stylesheet" href="~/css/AboutUsStyle.css">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1 class="animated fadeIn" style="color:gray;">About Us</h1>
+        <p class="lead animated fadeIn delay-1s" style="color:gray;">Welcome to the Find Me app! We help you find lost items and connect people.</p>
+        <hr class="my-4">
+
+        <div class="row mt-5">
+            <div class="col-md-6 mb-4">
+                <div class="card animated slideInLeft">
+                    <div class="card-body">
+                        <h5 class="card-title">Our Mission</h5>
+                        <p class="card-text">Our mission is to create a community where lost items can be easily found and returned to their owners. We believe that every lost item has a story, and we want to help you find yours.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card animated slideInRight">
+                    <div class="card-body">
+                        <h5 class="card-title">Our Vision</h5>
+                        <p class="card-text">We envision a world where technology brings people together to help each other. The Find Me app is designed to make finding lost items easier, faster, and more reliable.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="animated fadeIn" style="color:gray;">Meet the Team</h2>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card animated zoomIn">
+                        <img src="~/images/bongi.jpg" alt="Team Member 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Mbongiseni Ntimane</h5>
+                            <p class="card-text">Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card animated zoomIn delay-1s">
+                        <img src="~/images/dj.jpg" alt="Team Member 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Siphesihle Mavuso</h5>
+                            <p class="card-text">Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card animated zoomIn delay-2s">
+                        <img src="~/images/mdu.jpg" alt="Team Member 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Mduduzi Sithole</h5>
+                            <p class="card-text">Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card animated zoomIn delay-3s">
+                        <img src="~/images/yonela.jpg" alt="Team Member 4">
+                        <div class="card-body">
+                            <h5 class="card-title">Yonela Nombila</h5>
+                            <p class="card-text">Developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h2 class="animated fadeIn">Join Us in Finding What Matters!</h2>
+            <button class="btn animated bounceIn" onclick="window.location.href='@Url.Action("Index", "Home")'">Get Started</button>
+        </div>
+    </div>
+
+</body>
+</html>

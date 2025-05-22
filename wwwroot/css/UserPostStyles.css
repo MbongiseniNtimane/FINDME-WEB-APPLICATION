@@ -1,0 +1,103 @@
+﻿/* Reset Default Margins, Padding, and Box Sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Root Variables */
+:root {
+    --main-color: #ff2c1f;
+    --text-color: #020307;
+    --bg-color: #fff;
+}
+
+/* Body Styling */
+body {
+    background: rgba(255, 166, 0, 0.759);
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Header and Navbar */
+.container-header {
+    background: var(--main-color);
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container */
+.container {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+/* Custom Card Styles */
+.custom-card {
+    transition: 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Slightly larger shadow */
+    border: 1px solid #e0e0e0;
+    border-radius: 15px; /* Smoother corners */
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    min-height: 350px; /* Increase the minimum height of the card */
+    max-width: 600px; /* Increase card width */
+    margin: 0 auto; /* Center the card */
+}
+
+    .custom-card:hover {
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+    }
+
+.custom-card-body {
+    padding: 30px; /* Increased padding */
+    flex-grow: 1;
+    width: 100%; /* Ensure full width of the card */
+    
+}
+
+.custom-card-title {
+    font-size: 1.75rem; /* Larger font size for the title */
+    margin-bottom: 20px;
+}
+
+.custom-card-text {
+    font-size: 1.1rem; /* Slightly larger text */
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.btn-group .btn {
+    margin-right: 12px;
+    
+}
+
+    .btn-group .btn:last-child {
+        margin-right: 0;
+    }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .custom-card {
+        max-width: 100%; /* Make card full width on smaller screens */
+    }
+
+    .custom-card-body {
+        padding: 20px;
+    }
+
+    .custom-card-title {
+        font-size: 1.5rem; /* Slightly smaller title on mobile */
+    }
+
+    .custom-card-text {
+        font-size: 1rem; /* Slightly smaller text on mobile */
+    }
+}

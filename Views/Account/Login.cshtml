@@ -1,0 +1,146 @@
+﻿@model ASPNETCore_DB.Models.Login
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    .background {
+        background-image: url('/images/lost.png'); /* Correct path */
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        filter: blur(8px);
+        z-index: -1;
+    }
+
+    .container {
+        margin: 8% auto;
+        max-width: 500px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px 40px; /* Match padding for consistency */
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 10px; /* Consistent spacing */
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px; /* Consistent button size */
+        margin-top: 20px; /* Add margin between buttons */
+    }
+
+    .form-group .form-check {
+        margin-top: 20px; /* Consistent spacing for checkboxes */
+        margin-bottom: 20px;
+    }
+
+    .form-check label {
+        margin-right: 20px; /* Space for labels */
+    }
+
+    .forgot-password {
+        margin-left: 20px; /* Space between remember and forgot password */
+    }
+
+    .signup-header {
+        text-align: center;
+        margin-bottom: 10px; /* Same spacing as login header */
+    }
+
+    .alert-custom {
+        margin-top: 20px;
+    }
+
+    .resend-link {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+        .resend-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .resend-link a:hover {
+                text-decoration: underline;
+            }
+</style>
+
+<!-- Background Image Section -->
+<div class="background"></div>
+
+<!-- Login Form Section -->
+<div class="container">
+    <div class="login-container">
+        <div class="header">
+            <h2 class="signup-header">Login</h2>
+        </div>
+
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <!-- Display Validation Summary -->
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <!-- Display Success or Info Messages -->
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-info alert-custom" role="alert">
+                    @ViewBag.Message
+                </div>
+            }
+
+            <!-- Email Field -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new { @class = "form-label" })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, new { @class = "form-label" })
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- Remember Me and Forgot Password -->
+            <div class="form-group form-check d-flex justify-content-between align-items-center">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="RememberMe" name="RememberMe" />
+                    <label class="form-check-label" for="RememberMe">Remember me</label>
+                </div>
+                <a href="@Url.Action("ForgotPassword", "Account")" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary btn-login" />
+            </div>
+        }
+
+        <!-- Resend Verification Email Link -->
+        @if (!string.IsNullOrEmpty(ViewBag.Email))
+        {
+            <div class="resend-link">
+                <p>Didn't receive the verification email?</p>
+                <a href="@Url.Action("ResendVerificationEmail", "Account")" class="btn btn-link">Resend Verification Email</a>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Include jQuery and Bootstrap JS if not already included in your layout -->
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

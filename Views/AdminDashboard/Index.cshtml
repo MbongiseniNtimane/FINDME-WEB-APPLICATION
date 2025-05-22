@@ -1,0 +1,202 @@
+﻿@model IEnumerable<ASPNETCore_DB.Models.PostItem>
+
+@{
+    Layout = "_AdminLayout";
+    var totalPosts = Model.Count();
+    var lostPosts = Model.Count(p => p.ItemType == "Lost");
+    var foundPosts = Model.Count(p => p.ItemType == "Found");
+    var lostPercentage = totalPosts > 0 ? (lostPosts * 100) / totalPosts : 0;
+    var foundPercentage = totalPosts > 0 ? (foundPosts * 100) / totalPosts : 0;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <!-- Custom Admin Styles -->
+    <link rel="stylesheet" href="~/css/Adminstyles.css">
+</head>
+<body>
+    <div class="container-header">
+        @if (ViewBag.AdminEmail != null)
+        {
+            <p class="text-center text-white py-3">Hello, @ViewBag.AdminEmail! Welcome to the admin area.</p>
+        }
+        else
+        {
+            <p class="text-center text-white py-3">Hello, Admin! Welcome to the admin area.</p>
+        }
+    </div>
+
+    <div class="container5">
+        <h1 class="text-center mb-4">Admin Dashboard</h1>
+
+        <!-- Statistics Section -->
+        <div class="statistics-section container">
+            <h3>Statistics Overview</h3>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="stat-box text-center">
+                        <h5>Total Posts</h5>
+                        <p class="display-6">@totalPosts</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="stat-box text-center">
+                        <h5>Lost Posts</h5>
+                        <div class="progress">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: @lostPercentage%;" aria-valuenow="@lostPercentage" aria-valuemin="0" aria-valuemax="100">
+                                @lostPercentage%
+                            </div>
+                        </div>
+                        <p>@lostPosts posts</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="stat-box text-center">
+                        <h5>Found Posts</h5>
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: @foundPercentage%;" aria-valuenow="@foundPercentage" aria-valuemin="0" aria-valuemax="100">
+                                @foundPercentage%
+                            </div>
+                        </div>
+                        <p>@foundPosts posts</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="row" style="margin:15px;">
+            <div class="col-md-12 text-center">
+                <p>Browse through the lost and found items.</p>
+
+                <div class="btn-group mb-3">
+                    <a href="@Url.Action("Index", new { itemType = "Lost" })" class="btn btn-outline-danger" data-bs-toggle="tooltip" title="View lost items">
+                        <i class="bi bi-exclamation-circle"></i> Lost
+                    </a>
+                    <a href="@Url.Action("Index", new { itemType = "Found" })" class="btn btn-outline-success" data-bs-toggle="tooltip" title="View found items">
+                        <i class="bi bi-check-circle"></i> Found
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid for displaying the posts -->
+        <div class="row g-4">
+            @if (Model.Any())
+            {
+                @foreach (var post in Model)
+                {
+
+                    <div class="custom-card shadow-sm " style="width: 18rem; background-color:orange;">
+                            <div class="custom-card-body d-flex flex-column ">
+                                <!-- Display the image if it exists -->
+                                @if (!string.IsNullOrEmpty(post.ImagePath))
+                                {
+                                <img src="@Url.Content(post.ImagePath)" alt="Uploaded Image" class="img-fluid mb-3" style="width: 25rem;"  />
+                                }
+                                else
+                                {
+                                    <img src="~/images/default-placeholder.png" alt="No Image Available" class="img-fluid mb-3" />
+                                }
+
+                                <h5 class="custom-card-title"><strong>Item Name:</strong> @post.ItemName</h5>
+                                <p class="custom-card-text">
+                                    <strong>Description:</strong> @post.Description<br />
+                                    <strong>Posted By:</strong> @post.PosterName<br />
+                                    <strong>Contact:</strong> @post.ContactDetails<br />
+                                    <strong>Course:</strong> @post.Course<br />
+                                    <strong>Category:</strong> @post.Category<br />
+                                    <strong>Item Type:</strong> @post.ItemType<br />
+                                    <strong>Posted:</strong> @post.PostedTime.ToString("g")<br />
+                                </p>
+
+                                <!-- Action buttons -->
+                                <div class="mt-auto">
+                                    <div class="btn-group">
+                                        <a href="@Url.Action("Delete", new { id = post.Id })" class="btn btn-danger" data-bs-toggle="tooltip" title="Delete this post">
+                                            <i class="bi bi-trash"></i> Delete
+                                        </a>
+
+                                        <a href="javascript:void(0);" class="btn btn-info" data-bs-toggle="tooltip" title="Send email notification"
+                                           onclick="sendNotification(this)"
+                                           data-email="@post.ContactDetails"
+                                           data-item-name="@post.ItemName"
+                                           data-poster-name="@post.PosterName"
+                                           data-description="@post.Description"
+                                           data-course="@post.Course">
+                                            <i class="bi bi-envelope"></i> Notify
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                }
+            }
+            else
+            {
+                <p class="col-12 text-center">No posts available.</p>
+            }
+        </div>
+    </div>
+
+
+
+    <!-- Google Maps API Script -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxl95zY2GJTI3CE-K2c43HpfvDS0JEVtE&callback=initMap"></script>
+    
+
+
+    <!-- Scripts -->
+    <!-- Bootstrap Bundle with Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        function sendNotification(button) {
+            const email = button.getAttribute('data-email');
+            const itemName = button.getAttribute('data-item-name');
+            const posterName = button.getAttribute('data-poster-name');
+            const description = button.getAttribute('data-description');
+            const course = button.getAttribute('data-course');
+
+            const subject = `Your item '${itemName}' was found!`;
+            const body = `
+                        Hi ${posterName},
+
+                        We're happy to inform you that your item, '${itemName}', was found.
+
+                        Details:
+                        - Name: ${posterName}
+                        - Item Name: ${itemName}
+                        - Description: ${description}
+                        - Course: ${course}
+
+                        Please contact us to arrange for retrieval.
+
+                        Best regards,
+                        Lost and Found Team`;
+
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(gmailUrl, '_blank');
+        }
+
+       
+
+
+
+    </script>
+</body>
+</html>

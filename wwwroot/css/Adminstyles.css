@@ -1,0 +1,204 @@
+﻿/* Reset Default Margins, Padding, and Box Sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Root Variables */
+:root {
+    --main-color: #ff2c1f;
+    --text-color: #020307;
+    --bg-color: #fff;
+    --secondary-color: #007bff;
+    --progress-height: 24px;
+    --card-border-radius: 15px;
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --card-hover-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Body Styling */
+body {
+    background: rgba(255, 166, 0, 0.759);
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    font-family: 'Poppins', sans-serif;
+    background-color:orange;
+}
+
+/* Header and Navbar */
+.container-header {
+    background: var(--main-color);
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container */
+.container5 {
+    margin-top: 20px;
+    padding: 20px;
+    max-width: 800px; /* Restrict the container width */
+    margin: 0 auto; /* Center the container */
+}
+
+/* Custom Card Image Styles */
+.custom-card img {
+    border-top-left-radius: var(--card-border-radius);
+    border-top-right-radius: var(--card-border-radius);
+    object-fit: cover; /* Ensures the image covers the space without distortion */
+    width: 100%; /* Full width of the card */
+    height: 200px; /* Set a fixed height for consistency */
+    max-height: 200px; /* Ensure the image doesn't exceed the height */
+    
+}
+
+/* Custom Card Styles */
+.custom-card {
+    transition: transform 0.3s ease;
+    box-shadow: var(--card-shadow);
+    border: 1px solid #e0e0e0;
+    border-radius: var(--card-border-radius);
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure the card container takes up full height */
+    width: 180px; /* Reduce the card width for smaller layout */
+    overflow: hidden;
+    margin: 0 auto; /* Center th Prevent overflow of content, especially the image */
+}
+
+.row.g-4 {
+    justify-content: center; /* Center the row of cards */
+    gap: 20px; /* Add space between the cards */
+}
+
+.custom-card-body {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.custom-card-title {
+    font-size: 1.5rem; /* Larger font size for the title */
+    margin-bottom: 15px; /* Space below the title */
+    color: var(--secondary-color);
+}
+
+.custom-card-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: var(--text-color);
+    
+}
+
+/* Button Group */
+.btn-group .btn {
+    margin-right: 10px; /* Increased margin between buttons */
+}
+
+    .btn-group .btn:last-child {
+        margin-right: 0; /* Remove margin from the last button */
+    }
+
+/* Tooltip Styling */
+.tooltip-inner {
+    background-color: #17a2b8;
+    color: white;
+    font-size: 0.9rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .custom-card-body {
+        padding: 15px; /* Adjust padding on smaller screens */
+    }
+
+    .custom-card-title {
+        font-size: 1.25rem; /* Slightly smaller titles on smaller screens */
+    }
+
+    .custom-card-text {
+        font-size: 0.95rem; /* Slightly smaller text on smaller screens */
+    }
+
+    .custom-card img {
+        max-height: 120px; /* Further reduce image size on smaller screens */
+    }
+}
+
+/* Optional: Adjust Filter Buttons Alignment */
+.btn-group.mb-3 {
+    justify-content: center; /* Center the filter buttons */
+}
+
+/* Statistics Progress Bars */
+/* Statistics Progress Bars */
+.statistics-section .progress-bar.bg-danger {
+    background-color: #dc3545 !important; /* Bootstrap danger color */
+}
+
+.statistics-section .progress-bar.bg-success {
+    background-color: #28a745 !important; /* Bootstrap success color */
+}
+
+/* Position the statistics section in the top-right corner */
+.statistics-section {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    width: 300px; /* Adjust width as needed */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Make sure it appears on top of other elements */
+}
+
+    .statistics-section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+.stat-box {
+    margin-bottom: 10px;
+}
+
+
+
+/* Button Icons */
+.btn .bi {
+    margin-right: 5px;
+}
+
+/* Add to Adminstyles.css */
+
+/* Style for the map container */
+#map {
+    height: 500px;
+    width: 100%;
+    margin: 20px auto;
+    border: 2px solid #333;
+    border-radius: 10px;
+}
+
+#coordinates {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .custom-card-text {
+        font-size: 0.85rem;
+    }
+
+    .custom-card-title {
+        font-size: 1rem;
+    }
+}

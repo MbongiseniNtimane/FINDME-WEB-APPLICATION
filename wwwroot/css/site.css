@@ -1,0 +1,774 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+:root {
+    --main-color: #ff2c1f;
+    --text-color: #020307;
+    --bg-color: #fff;
+}
+/*header*/
+.container-header {
+    background: var( --main-color)
+}
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+
+/*
+body {
+    
+}*/
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-block: 40px 60px;
+}
+
+.middle-footer .footer-menu {
+    display: flex;
+    row-gap: 30px;
+}
+
+.footer-menu-list {
+    list-style: none;
+}
+
+.footer-menu-list a {
+        text-decoration: none;
+       
+        font-weight: 500;
+        margin-inline: 20px;
+ }
+.footer-menu-list a:hover {
+            color: rgb(5, 61, 109);
+ }
+.footer-social-icons {
+    display: flex;
+    gap: 30px;
+  
+}
+
+.footer-social-icons .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+
+}
+
+.bottom-footer {
+    font-size: 20px;
+    margin-top: 80px;
+}
+
+/*** Services Start ***/
+
+.services .services-item {
+    box-shadow: 0 0 60px rgba(0, 0, 0, .2);
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    padding: 10px 0;
+    position: relative;
+}
+
+
+.services-content::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    border-radius: 10px 10px 0 0;
+    background: rgba(3, 43, 243, 0.8);
+    transition: .5s;
+}
+
+.services-content::after {
+    top: 0;
+    bottom: auto;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.services-item:hover .services-content::after {
+    height: 100%;
+    opacity: 1;
+    transition: .5s;
+}
+
+.services-item:hover .services-content-icon {
+    position: relative;
+    z-index: 2;
+}
+
+.services-item .services-content-icon i,
+.services-item .services-content-icon p {
+    transition: .5s;
+}
+
+.services-item:hover .services-content-icon i {
+    color: var( --text-color) !important;
+}
+
+.services-item:hover .services-content-icon p {
+    color: var(--text-color);
+}
+
+/*** Services End ***/
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+
+body {
+    background: rgba(255, 166, 0, 0.759);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+}
+#imageslides {
+    display: flex;
+    gap: 20px;
+    overflow: hidden; /* Ensures no horizontal scrollbar appears */
+    scroll-behavior: smooth;
+    padding: 10px 0; /* Reduced padding to minimize side space */
+    position: relative;
+    top: 30px;
+    background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
+    border-radius: 15px;
+    width: 100%; /* Ensures the slider takes the full width of its container */
+    box-sizing: border-box; /* Includes padding in the element's total width */
+    flex-wrap: nowrap; /* Prevents the images from wrapping to the next line */
+}
+
+
+.image-container {
+    flex-shrink: 0;
+    width: 350px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: #fff;
+}
+
+
+    .image-container:hover {
+        transform: scale(1.05); /* Slight zoom on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+    }
+
+.slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px; /* Ensure the image fits nicely within the container */
+}
+
+/* Optional: Hide the scrollbar for a cleaner look */
+#imageslides::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+/* Home ages buttons styling kanjalo */
+#landfbuttons {
+    position: absolute;
+    top: 380px;
+    left: 700px;
+}
+
+.lostbutton {
+    background-color: red;
+    border-radius: 10px;
+}
+
+.foundbutton {
+    background-color: green;
+    border-radius: 10px;
+}
+
+/* Home ages buttons styling kanjalo */
+
+h1 {
+    position: relative;
+    top: 25px;
+}
+
+
+
+nav ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 10px 20px;
+    color: white;
+}
+
+    nav ul li a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 18px;
+        position: relative;
+    }
+
+        nav ul li a::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            background: darkorange;
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            transition: 0.5s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+.logo {
+    width: 110px;
+    height: 100px;
+}
+
+/* forms styling */
+
+
+
+
+form {
+    max-width: 400px;
+    margin: auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+    /* Hover effect */
+    button:hover {
+        background-color: orange;
+        /* Darker green color on hover */
+    }
+
+.plus {
+    font-size: 37px;
+    cursor: pointer;
+    position: fixed;
+    left: 90%;
+    top: 90%;
+    background-color: transparent;
+    border-radius: 50%;
+}
+
+.formbtn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    left: 90%;
+    top: 90%;
+    font-size: 18px;
+}
+
+#categories {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+#types {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+
+/* forms styling */
+
+
+#submissionsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    position: relative;
+    top: 150px;
+    border-radius: 8px;
+}
+
+.submission {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 400px;
+    height: 550px;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+}
+
+/* Lost and found buttons */
+.fandl {
+    position: relative;
+    left: 37%;
+}
+
+.submissions {
+    padding-top: 10px;
+}
+
+p {
+    padding-top: 2vh;
+}
+
+#delbn {
+    font-size: 15px;
+}
+
+    #delbn:hover {
+        background-color: red;
+    }
+
+
+/* Modal Styles */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.share-options a {
+    display: block;
+    margin: 10px 0;
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+}
+
+    .share-options a:hover {
+        color: #007bff;
+    }
+
+/* Modal Styles */
+
+
+/* Profile Page stylying */
+#genders {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* FoundItems Page stylying */
+.submission-wrapper {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submissions1 {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+#foundItems {
+    max-width: 800px;
+    margin: 0 auto;
+    /* Centers the container on the page */
+    padding: 20px;
+}
+
+/* HOME PAGE BACK BUTTON STYLYING*/
+.top-icon {
+    margin-bottom: 5px;
+    /* Adds some space below the button */
+}
+
+#homeButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+    #homeButton i {
+        font-size: 35px;
+        /* Adjust the size of the icon */
+        color: white;
+        /* Set the color of the icon */
+    }
+
+        #homeButton i:hover {
+            color: green;
+            /* Darker color on hover */
+        }
+
+/* Graph Meters*/
+.graph-container {
+    width: 60%;
+    max-width: 800px;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto 30px auto;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.bar {
+    width: 100%;
+    background-color: #3498db;
+    margin: 10px 0;
+    color: #fff;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+    .bar:hover {
+        background-color: #2980b9;
+    }
+
+/* Admin panel search inpput css*/
+#searchContainer {
+    margin-bottom: 20px;
+}
+
+#searching {
+    position: relative;
+    left: 250px;
+}
+
+#searchInput {
+    width: 200px;
+    /* Adjust width as needed */
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#searchButton {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+    #searchButton:hover {
+        background-color: #ddd;
+    }
+
+/* Admin panel search inpput css*/
+
+
+
+/* uploaded  image styling */
+.uploaded-image {
+    max-width: 400px;
+    /* Set a max width */
+    max-height: 150px;
+    /* Set a max height */
+    width: 300px;
+    height: 180px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    object-fit: cover;
+    /* Ensures the image covers the area while maintaining aspect ratio */
+}
+
+
+#imageUpload {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+
+
+#hero {
+    background-size: cover;
+    background-position: center;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 50px;
+    overflow: hidden;
+}
+
+.hero-content {
+    opacity: 0;
+    transform: translateX(-100%);
+    animation: slideIn 1s ease-out forwards;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        /* Fade in */
+        transform: translateX(0);
+        /* Move to its final position */
+    }
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero-content button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+    .hero-content button:hover {
+        background-color: orange;
+    }
+
+/* Counters */
+#Counters {
+    position: absolute;
+    left: 580px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    background-color: white;
+    border-radius: 4px;
+}
+
+/**************************************************************************/
+/*Box LOSt*/
+
+.container2 {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.icon-box {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+    .icon-box .box {
+        background-color: white;
+        width: 250px;
+        padding: 20px;
+        margin: 10px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        text-align: center;
+    }
+
+        .icon-box .box:hover {
+            transform: translateY(-10px);
+        }
+
+        .icon-box .box i {
+            font-size: 50px;
+            color: #ff8c00;
+            margin-bottom: 20px;
+        }
+
+        .icon-box .box h3 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .icon-box .box p {
+            font-size: 16px;
+            color: #666;
+        }
+
+.cta-button {
+    display: inline-block;
+    background-color: #ff8c00;
+    color: white;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+    .cta-button:hover {
+        background-color: #e67300;
+    }
+
+    /*Section css on user dashboard with animation*/
+#hero {
+    background-size: cover;
+    background-position: center;
+    height: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 50px;
+    overflow: hidden;
+}
+
+.hero-content {
+    opacity: 0;
+    transform: translateX(-100%);
+    animation: slideIn 1s ease-out forwards;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        /* Fade in */
+        transform: translateX(0);
+        /* Move to its final position */
+    }
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero-content button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+    .hero-content button:hover {
+        background-color: orange;
+    }
+

@@ -1,0 +1,98 @@
+﻿@model ASPNETCore_DB.Models.SignUp
+
+@{
+    ViewBag.Title = "Sign Up";
+}
+
+<!-- Reusing the same CSS from the login page -->
+<style>
+    .signup-background {
+        background-image: url('/images/lost.png');
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        filter: blur(8px);
+        z-index: -1;
+    }
+
+    .container {
+        margin: 8% auto;
+        max-width: 500px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px 40px; /* Match padding for consistency */
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .signup-header {
+        text-align: center;
+        margin-bottom: 10px; /* Same spacing as login header */
+    }
+
+    .btn-signup {
+        width: 100%;
+        padding: 12px; /* Consistent button size */
+        margin-top: 20px; /* Add margin between buttons */
+    }
+
+    .form-group .form-check {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-check label {
+        margin-right: 20px;
+    }
+
+    .forgot-password {
+        margin-left: 20px; /* Space between remember and forgot password */
+    }
+</style>
+
+<!-- Background Image Section -->
+<div class="signup-background"></div>
+
+<div class="container">
+    <div class="signup-container">
+        <h2 class="signup-header">Sign Up</h2>
+
+        <!-- Validation Summary -->
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        @using (Html.BeginForm("Signup", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label" })
+                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Sign Up" class="btn btn-primary btn-signup" />
+            </div>
+        }
+    </div>
+</div>

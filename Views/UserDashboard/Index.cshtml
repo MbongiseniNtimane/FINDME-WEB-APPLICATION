@@ -1,0 +1,234 @@
+﻿@{
+    Layout = "_UserLayout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="css/UserDashboardStyle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <style>
+        body {
+            background-color: orange;
+        }
+
+        #toggleButton {
+            position: relative;
+            top: 5px;
+            left: 600px;
+        }
+
+        .containercomment {
+            color: blue;
+            margin-left: 0; /* Align to the left */
+            text-align: left;
+        }
+
+        #hero {
+            background-color: white;
+            border-radius: 18px;
+        }
+
+        /* Add additional styles as needed for dark mode */
+    </style>
+
+    <h1 style="color:white;">Welcome, @User.Identity.Name</h1>
+    <p style="color:white;">Find Me!</p>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1>Lost Something? Find It Here.</h1>
+            <p>Submit a lost or found item easily and help others.</p>
+        </div>
+    </section>
+
+    <div id="quick-actions" class="text-center my-4">
+        <h2 style="color:white;">Quick Action</h2>
+        <button style="background-color: gray; color: white;" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index", "Post")'">
+            View Lost and Found Items
+        </button>
+        <button style="background-color:gray;" id="speakButton" class="btn btn-success" onclick="speakText()">
+            <i class="bi bi-volume-up"></i>
+        </button>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="text-center mb-4">
+        <input type="text" id="searchInput" placeholder="Search for items..." class="form-control w-50 mx-auto">
+        <select id="categorySelect" class="form-select w-50 mx-auto my-2">
+            <option value="">All Categories</option>
+            <option value="lost">Lost</option>
+            <option value="found">Found</option>
+        </select>
+    </div>
+
+    <!-- Recent Items Section -->
+    <div class="container">
+        <h2 style="color:white;">Previously Posted Items</h2>
+        <div id="recentItems" class="row">
+            <!-- Example of recent items (this can be dynamically generated) -->
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="~/images/wallet.jpeg" class="card-img-top" alt="Item 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Lost Wallet</h5>
+                        <p class="card-text">Description of the lost wallet.</p>
+                        <button class="btn btn-info" style="background-color:gray; color:white;" onclick="showModal({ name: 'Lost Wallet', description: 'A black wallet with cash inside.', postedBy: 'Alice', contact: 'alice@example.com' })">View Details</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="~/images/keys.jpg" class="card-img-top" alt="Item 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Found Keys</h5>
+                        <p class="card-text">Description of the found keys.</p>
+                        <button class="btn btn-info" style="background-color:gray; color:white;" onclick="showModal({ name: 'Found Keys', description: 'A set of keys with a red keychain.', postedBy: 'Bob', contact: 'bob@example.com' })">View Details</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="~/images/phone.jpg" class="card-img-top" alt="Item 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Lost Phone</h5>
+                        <p class="card-text">Description of the lost phone.</p>
+                        <button class="btn btn-info" style="background-color:gray; color:white;" onclick="showModal({ name: 'Lost Phone', description: 'A black smartphone with a cracked screen.', postedBy: 'Charlie', contact: 'charlie@example.com' })">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="imageslides">
+        <div class="image-container">
+            <img src="~/images/idp.jpg" class="slide-image">
+        </div>
+        <div class="image-container">
+            <img src="~/images/idp2.png" class="slide-image">
+        </div>
+        <div class="image-container">
+            <img src="~/images/keys.jpg" class="slide-image">
+        </div>
+        <div class="image-container">
+            <img src="~/images/phone.jpg" class="slide-image">
+        </div>
+        <div class="image-container">
+            <img src="~/images/stucards.jpg" class="slide-image">
+        </div>
+
+        <!-- Duplicate set of images for endless loop -->
+        <div class="image-container">
+            <img src="~/images/idp.jpg" class="slide-image">
+        </div>
+        <div class="image-container">
+            <img src="~/images/idp2.png" class="slide-image">
+        </div>
+        <div class="image-container">
+            <img src="~/images/keys.jpg" class="slide-image">
+        </div>
+        <div class="image-container">
+            <img src="~/images/phone.jpg" class="slide-image">
+        </div>
+        <div class="image-container">
+            <img src="~/images/stucards.jpg" class="slide-image">
+        </div>
+    </div>
+
+    <button class="plus" onclick="window.location.href='@Url.Action("Create", "Post")'"><i class="bi bi-plus-lg"></i></button>
+
+    <!-- Modal for Item Details -->
+    <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="itemModalLabel">Item Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Item details will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer text-center py-3" style="background-color:grey; z-index:0;">
+        <div class="footer-content">
+            <p>&copy; 2024 Lost and Found. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com" target="_blank" class="bi bi-facebook" aria-label="Facebook"></a>
+                <a href="https://twitter.com" target="_blank" class="bi bi-twitter" aria-label="Twitter"></a>
+                <a href="https://www.instagram.com" target="_blank" class="bi bi-instagram" aria-label="Instagram"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const imageslides = document.getElementById('imageslides');
+
+        function scrollImages() {
+            imageslides.scrollLeft += 1; // Adjust speed if needed
+
+            // Reset scroll position when reaching halfway through the duplicated images
+            if (imageslides.scrollLeft >= imageslides.scrollWidth / 2) {
+                imageslides.scrollLeft = 0;
+            }
+        }
+
+        // Set the interval for the smooth scrolling effect
+        setInterval(scrollImages, 20); // Adjust as needed
+
+        // Function to show modal with item details
+        function showModal(itemDetails) {
+            const modalBody = document.querySelector('#itemModal .modal-body');
+            modalBody.innerHTML =
+                `<p><strong>Item Name:</strong> ${itemDetails.name}</p>
+                                        <p><strong>Description:</strong> ${itemDetails.description}</p>
+                                        <p><strong>Posted By:</strong> ${itemDetails.postedBy}</p>
+                                        <p><strong>Contact:</strong> ${itemDetails.contact}</p>`;
+            const modal = new bootstrap.Modal(document.getElementById('itemModal'));
+            modal.show();
+        }
+
+        // Filter functionality for search
+        const searchInput = document.getElementById('searchInput');
+        const categorySelect = document.getElementById('categorySelect');
+        searchInput.addEventListener('input', filterItems);
+        categorySelect.addEventListener('change', filterItems);
+
+        function filterItems() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedCategory = categorySelect.value;
+
+            const itemCards = document.querySelectorAll('.card');
+
+            itemCards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const categoryMatches = selectedCategory === '' || title.includes(selectedCategory);
+
+                if (title.includes(searchTerm) && categoryMatches) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Text-to-speech functionality
+        function speakText() {
+            const textToSpeak = "Welcome to your dashboard! You can view lost and found items, search for specific items, and post your own. Use the buttons provided to navigate. Please press Windows key plus Control button plus enter to activate Screen Reader If you have a problem with your eyeside";
+            const speech = new SpeechSynthesisUtterance(textToSpeak);
+            speech.lang = 'en-US'; // Set the language
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

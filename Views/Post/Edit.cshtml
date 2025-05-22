@@ -1,0 +1,123 @@
+﻿@model ASPNETCore_DB.Models.PostItem
+
+@{
+    Layout = "_UserLayout";
+}
+
+<div class="container">
+    <h2>Edit Post</h2>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="ItemName">Item Name</label>
+            <input type="text" class="form-control" asp-for="ItemName" />
+        </div>
+
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea class="form-control" asp-for="Description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="PosterName">Poster Name</label>
+            <input type="text" class="form-control" asp-for="PosterName" />
+        </div>
+
+        <div class="form-group">
+            <label for="ContactDetails">Contact Details</label>
+            <input type="text" class="form-control" asp-for="ContactDetails" />
+        </div>
+
+        <div class="form-group">
+            <label for="Course">Course</label>
+            <input type="text" class="form-control" asp-for="Course" />
+        </div>
+
+        <div class="form-group">
+            <label for="Category">Category</label>
+            <select class="form-control" asp-for="Category">
+                <option>ID Card</option>
+                <option>Backpack</option>
+                <option>Phone</option>
+                <option>Books</option>
+                <option>Keys</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="ItemType">Item Type</label>
+            <select class="form-control" asp-for="ItemType">
+                <option>Lost</option>
+                <option>Found</option>
+            </select>
+        </div>
+
+        <!-- Image upload field -->
+        <div class="form-group">
+            <label for="imageUpload">Upload Image:</label>
+            <input type="file" id="imageUpload" name="ImageFile" accept="image/*" class="form-control" />
+            <small class="form-text text-muted">Leave blank if you don't want to change the image.</small>
+        </div>
+
+        <!-- Hidden fields for latitude and longitude -->
+        <input type="hidden" id="Latitude" name="Latitude" asp-for="Latitude" />
+        <input type="hidden" id="Longitude" name="Longitude" asp-for="Longitude" />
+
+        <!-- Display map for setting/editing the location -->
+        <div id="map" style="width: 400px; height: 400px;"></div>
+        <p id="coordinates">Coordinates: Latitude @Model.Latitude, Longitude @Model.Longitude</p>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        let map;
+        let marker;
+
+        // Initialize the map
+        function initMap() {
+            const currentLocation = { lat: parseFloat('@Model.Latitude'), lng: parseFloat('@Model.Longitude') };
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: currentLocation,
+            });
+
+            marker = new google.maps.Marker({
+                position: currentLocation,
+                map: map,
+                title: 'Item location',
+            });
+
+            map.addListener("click", function (event) {
+                placeMarker(event.latLng);
+            });
+        }
+
+        function placeMarker(location) {
+            if (marker) {
+                marker.setMap(null);
+            }
+
+            marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                title: 'Item found here!'
+            });
+
+            const lat = location.lat();
+            const lng = location.lng();
+            document.getElementById("coordinates").innerText = `Coordinates: Latitude ${lat}, Longitude ${lng}`;
+
+            document.getElementById("Latitude").value = lat;
+            document.getElementById("Longitude").value = lng;
+        }
+
+        initMap();
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABtNikWWuoshEnO6XYb_Oh0pRPXhB7VWQ&callback=initMap" async defer></script>
+}

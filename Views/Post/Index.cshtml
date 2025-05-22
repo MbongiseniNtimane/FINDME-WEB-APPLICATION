@@ -1,0 +1,257 @@
+﻿@model IEnumerable<ASPNETCore_DB.Models.PostItem>
+
+@{
+    Layout = "_UserLayout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Results</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <!-- Custom Admin Styles -->
+    <link rel="stylesheet" href="~/css/Adminstyles.css">
+    <style>
+        .container {
+            background-color: #f7f7f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .custom-card-body {
+            width: 300px;
+            background-color: darkorange;
+            height: 750px; /* Fixed height for cards */
+            overflow: hidden; /* Prevent overflow */
+            display: flex;
+            flex-direction: column; /* Align items vertically */
+            justify-content: space-between; /* Space items evenly */
+            border-radius: 8px;
+        }
+
+            .custom-card-body:hover {
+                transform: scale(1.03);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            .custom-card-body img {
+                max-height: 150px; /* Limit image height */
+                object-fit: cover; /* Ensure the image covers the area */
+                width: auto; /* Full width */
+                height:auto;
+                border-radius: 5px;
+            }
+
+        .custom-card-text {
+            flex-grow: 1; /* Allow text to take available space */
+        }
+
+        .row{ 
+            margin-top:0;
+            position:relative;
+            top:13px;
+        }
+
+        .col-md-12{
+           position:relative;
+           left:50px;
+          
+        }
+        .col-md-12 p {
+            font-size: 1.25rem; /* Increase the font size */
+            font-weight: bold; /* Make text bold */
+            line-height: 1.4; /* Adjust line height for readability */
+            margin-bottom: 0.5rem; /* Optional: Add space between paragraphs */
+            color:orange;
+        }
+
+        .share-options {
+            position: absolute;
+            bottom: 0; /* Position at the bottom of the card */
+            left: 0;
+            right: 0;
+            background-color: white;
+            border-radius: 0 0 8px 8px;
+            padding: 8px;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1; /* Ensure share options appear above other content */
+        }
+
+
+    </style>
+</head>
+
+<body style="background-color:orange;">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12 text-centre">
+                <h3>@ViewData["Title"]</h3>
+                <p >Welcome... @User.Identity.Name</p>
+                <p >Browse through the lost and found items.</p>
+
+                <!-- Filter buttons -->
+                <div class="btn-group mb-3">
+                    <a href="@Url.Action("Index", new { itemType = "Lost" })" class="btn btn-outline-danger">Lost</a>
+                    <a href="@Url.Action("Index", new { itemType = "Found" })" class="btn btn-outline-success">Found</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid for displaying the posts -->
+        <div class="row g-4">
+            @foreach (var post in Model)
+            {
+                <div class="row">
+                    <div class="custom-card-body">
+                        <h5 class="custom-card-title text-primary font-weight-bold">
+                            <strong >Item Name:</strong> @post.ItemName
+                        </h5>
+
+                        <!-- Display the image if it exists -->
+                        @if (!string.IsNullOrEmpty(post.ImagePath))
+                        {
+                            <img src="@Url.Content(post.ImagePath)" alt="Uploaded Image" />
+                        }
+
+                        <p class="custom-card-text">
+                            <strong>Description:</strong> @post.Description<br />
+                            <strong>Posted By:</strong> @post.PosterName<br />
+                            <strong>Contact:</strong> @post.ContactDetails<br />
+                            <strong>Course:</strong> @post.Course<br />
+                            <strong>Category:</strong> @post.Category<br />
+                            <strong>Item Type:</strong> @post.ItemType<br />
+                            <strong>Posted:</strong> @post.PostedTime.ToString("g")<br />
+                            <strong>Latitude:</strong> @post.Latitude<br />
+                            <strong>Longitude:</strong> @post.Longitude
+                        </p>
+
+                        <!-- QR Code image -->
+                        @{
+                            var qrData = $"Item Name: {post.ItemName}\nDescription: {post.Description}\nContact: {post.ContactDetails}\nItem Type: {post.ItemType}\nPosted: {post.PostedTime:g}\nLatitude: {post.Latitude:g}\nLongitude: {post.Longitude:g}";
+                            var qrCodeUrl = $"https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={Uri.EscapeDataString(qrData)}";
+                        }
+                        <div class="mb-3">
+                            <img src="@qrCodeUrl" alt="QR Code for @post.ItemName" />
+                        </div>
+
+                        <!-- Action buttons -->
+                        <div class="btn-group">
+                            <a href="@Url.Action("Edit", new { id = post.Id })" class="btn btn-warning">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a href="@Url.Action("Delete", new { id = post.Id })" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                            <a href="javascript:void(0)" class="btn btn-info share-btn"
+                               data-id="@post.Id"
+                               data-item="@post.ItemName"
+                               data-description="@post.Description"
+                               data-url="@Url.Action("Details", new { id = post.Id })"
+                               data-image="@Url.Content(post.ImagePath)"
+                               data-contact="@post.ContactDetails"
+                               data-itemtype="@post.ItemType"
+                               data-latitude="@post.Latitude"
+                               data-longitude="@post.Longitude">
+                                <i class="bi bi-share"></i> Share
+                            </a>
+                        </div>
+
+                        <!-- Share options container (initially hidden) -->
+                        <div class="share-options mt-2" id="share-options-@post.Id" style="display: none;">
+                            <button class="btn btn-primary btn-sm facebook-share">Share to Facebook</button>
+                            <button class="btn btn-info btn-sm twitter-share">Share to Twitter</button>
+                            <button class="btn btn-success btn-sm whatsapp-share">Share to WhatsApp</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Add new post button -->
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <a href="@Url.Action("Create")" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Add New Post
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery and Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript for sharing functionality -->
+    <script>
+        $(document).ready(function () {
+            // Toggle share options when the "Share" button is clicked
+            $('.share-btn').click(function (event) {
+                var postId = $(this).data('id');
+                var shareOptions = $('#share-options-' + postId);
+                shareOptions.toggle(); // Toggle the visibility of the share options
+                event.stopPropagation(); // Stop the click event from propagating to the body
+            });
+
+            // Close share options when clicking outside of it
+            $(document).click(function (event) {
+                if (!$(event.target).closest('.share-options, .share-btn').length) {
+                    $('.share-options').hide(); // Hide all share options
+                }
+            });
+
+            // Share functions
+            function shareToFacebook(postUrl, description) {
+                const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}&quote=${encodeURIComponent(description)}`;
+                window.open(facebookUrl, '_blank');
+            }
+
+            function shareToTwitter(postUrl, itemName, description) {
+                const text = `Check out this item: ${itemName}\n${description}`;
+                const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(text)}`;
+                window.open(twitterUrl, '_blank');
+            }
+
+            function shareToWhatsApp(postUrl, itemName, description, contact, itemType, latitude, longitude) {
+                const text = `Check out this item: ${itemName}\n\nDescription: ${description}\nContact: ${contact}\nItem Type: ${itemType}\nLatitude: ${latitude}\nLongitude: ${longitude}\n\nLink: ${postUrl}`;
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+                window.open(whatsappUrl, '_blank');
+            }
+
+            // Attach click events for share buttons dynamically based on the post
+            $('.facebook-share').click(function () {
+                const shareBtn = $(this).closest('.custom-card-body').find('.share-btn');
+                const postUrl = shareBtn.data('url');
+                const description = shareBtn.data('description');
+                shareToFacebook(postUrl, description);
+            });
+
+            $('.twitter-share').click(function () {
+                const shareBtn = $(this).closest('.custom-card-body').find('.share-btn');
+                const postUrl = shareBtn.data('url');
+                const itemName = shareBtn.data('item');
+                const description = shareBtn.data('description');
+                shareToTwitter(postUrl, itemName, description);
+            });
+
+            $('.whatsapp-share').click(function () {
+                const shareBtn = $(this).closest('.custom-card-body').find('.share-btn');
+                const postUrl = shareBtn.data('url');
+                const itemName = shareBtn.data('item');
+                const description = shareBtn.data('description');
+                const contact = shareBtn.data('contact');
+                const itemType = shareBtn.data('itemtype');
+                const latitude = shareBtn.data('latitude');
+                const longitude = shareBtn.data('longitude');
+                shareToWhatsApp(postUrl, itemName, description, contact, itemType, latitude, longitude);
+            });
+        });
+    </script>
+</body>
+</html>
